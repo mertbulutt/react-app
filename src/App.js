@@ -1,14 +1,12 @@
 import './App.css';
-import ProductItem from './components/ProductItem';
-import Products from './components/Products';
+import Products from './components/Products/Products';
 
-function App() {
+const App = () => {
   return (
     <div className="App">
       <Products />
     </div>
   );
-  
-}
+};
 
 export default App;
