@@ -1,14 +1,24 @@
+import { useState } from "react";
 import ProductForm from "./ProductForm";
+import AddProduct from "./AddProduct";
 
 const NewProduct = ({products, setProducts}) => {
-  const onSaveProduct = () => {
-    setProducts([products, ...newProductData])
+  const [isOpen, setIsOpen] = useState(false);
+
+
+
+  const onSaveProduct = (newProductData) => {
+    setProducts((prevState) => [...prevState, newProductData])
   }
   return (
     <div className="new-product-wrapper">
-      <ProductForm onSaveProduct={onSaveProduct}/>
+      {isOpen ? (
+        <ProductForm onSaveProduct={onSaveProduct} products={products} setIsOpen={setIsOpen} />
+      ) : (
+        <AddProduct setIsOpen={setIsOpen}/>
+      )}
     </div>
   );
 }
 
-export default NewProduct
+export default NewProduct;

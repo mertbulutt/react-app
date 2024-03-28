@@ -46,14 +46,13 @@ const ProductForm = (props) => {
   const submitHandler = (event) => {
     event.preventDefault();
     const newProductData = { 
-      productTitle: productData.productTitle,
+      id: props.products.length + 1,
+      productName: productData.productTitle,
       productPrice: productData.productPrice,
       imageUrl: productData.imageUrl
     };
-
     // props.setProducts(() => [...props.products, newProductData])
-    props.onSaveProduct()
-    console.log(newProductData);
+    props.onSaveProduct(newProductData)
 
     setProductData({
       productTitle: "",
@@ -91,7 +90,16 @@ const ProductForm = (props) => {
           value={productData.imageUrl}
         />
       </div>
-      <button className="product-form-button">Add Product</button>
+      <div className="form-buttons">
+        <button className="product-form-button">Add Product</button>
+        <button
+          className="product-form-button cancel"
+          type="button"
+          onClick={() => props.setIsOpen(false)}
+        >
+          Cancel
+        </button>
+      </div>
     </form>
   );
 };
