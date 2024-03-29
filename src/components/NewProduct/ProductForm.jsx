@@ -1,5 +1,15 @@
 import { useState } from "react";
 import "./ProductForm.css";
+import styled from "styled-components";
+
+const CancelButton = styled.button`
+  background-color: red;
+  transition: opacity 0.5s ease;
+  & :hover{
+    opacity: 0.5;
+  }
+`;
+
 
 const ProductForm = (props) => {
   // const [productName, setProductName] = useState("");
@@ -12,12 +22,18 @@ const ProductForm = (props) => {
     imageUrl: "",
   });
 
+  const [isValid, setIsValid] = useState(true);
+
   const titleChangeHandler = (event) => {
     // setProductName(event.target.value);
     // setProductData({
     //   ...productData,
     //   productTitle: event.target.value,
     // });
+    if(event.target.value.trim().length > 0)
+    {
+      setIsValid(true)
+    }
     setProductData((prevState) => { 
       return {...prevState, productTitle: event.target.value}
     })
@@ -45,6 +61,11 @@ const ProductForm = (props) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
+    if(productData.productTitle.trim().length === 0)
+    {
+      setIsValid(false);
+      return;
+    }
     const newProductData = { 
       id: props.products.length + 1,
       productName: productData.productTitle,
@@ -70,6 +91,7 @@ const ProductForm = (props) => {
           placeholder="Enter a product's name"
           onChange={titleChangeHandler}
           value={productData.productTitle}
+          style={{backgroundColor: !isValid ? "red" : ""}}
         />
       </div>
       <div className="product-form-input">
@@ -92,13 +114,13 @@ const ProductForm = (props) => {
       </div>
       <div className="form-buttons">
         <button className="product-form-button">Add Product</button>
-        <button
+        <CancelButton
           className="product-form-button cancel"
           type="button"
           onClick={() => props.setIsOpen(false)}
         >
           Cancel
-        </button>
+        </CancelButton>
       </div>
     </form>
   );

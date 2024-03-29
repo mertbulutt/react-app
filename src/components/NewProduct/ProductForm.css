@@ -29,9 +29,9 @@
     margin-top: 10px;
     height: 30px;
   }
-  .product-form button.cancel {
+  /* .product-form button.cancel {
     background-color: red;
-  }
+  } */
   
   .product-form .product-form-input {
     display: flex;
